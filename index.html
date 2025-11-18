@@ -81,40 +81,33 @@
             border-top: 5px solid #ff0000;
             font-weight: bold;
         }
-        /* Variables de color (aunque no están definidas en tu CSS, se usan en el JS, las defino aquí para consistencia) */
 :root {
     --color-rojo: #ff0000;
     --color-azul-oscuro: #0d47a1;
 }
-
-/* Estilos generales del formulario */
 #cotizacion-form {
-    max-width: 600px; /* Ancho máximo para que no se estire demasiado */
-    margin: 20px auto; /* Centrar el formulario y darle espacio */
-    padding: 20px;
-    background-color: #f5f5f5; /* Fondo ligeramente gris */
-    border: 3px solid var(--color-rojo); /* Borde rojo como los headers/footers */
-    border-radius: 8px; /* Bordes redondeados sutiles */
-    text-align: left; /* Alinear el texto de las etiquetas a la izquierda */
+    max-width: 600px;
+
+    background-color: #f5f5f5;
+    border: 3px solid var(--color-rojo); 
+    border-radius: 8px; 
+    text-align: left; 
 }
 
-/* Grupo de campos para mejor separación */
 .form-grupo {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px dashed #cccccc; /* Borde sutil para agrupar */
+    border: 1px dashed #cccccc;
     border-radius: 4px;
 }
 
 .form-grupo label,
 .form-grupo p {
-    display: block; /* Asegura que las etiquetas y párrafos tomen su propia línea */
-    font-weight: bold;
-    color: var(--color-azul-oscuro); /* Color azul oscuro para las etiquetas */
+    display: block; 
+    color: var(--color-azul-oscuro);
     margin-bottom: 5px;
 }
 
-/* Estilo para los campos de texto y selección */
 #cotizacion-form input[type="text"],
 #cotizacion-form input[type="email"],
 #cotizacion-form select {
@@ -122,15 +115,13 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    box-sizing: border-box; 
     font-size: 1em;
 }
 
-/* Estilo para Radio Buttons y Checkboxes */
 .form-grupo input[type="radio"],
 .form-grupo input[type="checkbox"] {
     margin-right: 5px;
-    /* Estilo para hacer que las etiquetas estén en línea con el input */
     vertical-align: middle; 
 }
 
@@ -142,16 +133,15 @@
 .form-grupo label[for="quemacocos"], 
 .form-grupo label[for="camara_trasera"], 
 .form-grupo label[for="camara_frontal"] {
-    display: inline; /* Hace que las etiquetas de radio/checkbox estén en línea con el botón */
+    display: inline;
     font-weight: normal;
-    color: #000000; /* Color negro simple para las opciones */
+    color: #000000;
     margin-right: 15px;
 }
 
-/* Estilo para el botón de envío */
 .boton-envio {
-    background-color: var(--color-rojo); /* Fondo rojo llamativo */
-    color: #ffffff; /* Texto blanco */
+    background-color: var(--color-rojo);
+    color: #ffffff;
     border: none;
     padding: 12px 20px;
     margin-top: 15px;
@@ -159,14 +149,13 @@
     border-radius: 4px;
     font-size: 1.1em;
     font-weight: bold;
-    transition: background-color 0.3s ease; /* Transición para el hover */
+    transition: background-color 0.3s ease;
 }
 
 .boton-envio:hover {
-    background-color: #e60000; /* Un rojo un poco más oscuro al pasar el ratón */
+    background-color: #e60000;
 }
 
-/* Estilo para la nota de envío */
 .nota-envio {
     font-size: 0.9em;
     color: #555;
@@ -238,33 +227,40 @@
             </div>
             
             <div class="form-grupo">
-                <p>Tipo de financiamiento:</p>
-                <input type="radio" id="contado" name="financiamiento" value="Contado" required>
-                <label for="contado">Contado</label>
-                <input type="radio" id="credito" name="financiamiento" value="Crédito">
-                <label for="credito">Crédito</label>
-            </div>
+        <p>Tipo de financiamiento:</p>
+        <input type="radio" id="contado" name="financiamiento" value="Contado" required>
+        <label for="contado">Contado</label>
+        
+        <input type="radio" id="credito" name="financiamiento" value="Crédito">
+        <label for="credito">Crédito</label>
+    </div>
 
-            <div class="form-grupo">
-                <p>Extras / Accesorios:</p>
-                <input type="checkbox" id="ac" name="extras" value="Aire Acondicionado">
-                <label for="ac">Aire Acondicionado</label><br>
+    <hr>
+    
+    <div class="form-grupo">
+        <p>Extras / Accesorios:</p>
+        <input type="checkbox" id="ac" name="extras" value="Aire Acondicionado">
+        <label for="ac">Aire Acondicionado</label><br>
 
-                <input type="checkbox" id="gps" name="extras" value="GPS">
-                <label for="gps">GPS</label><br>
+        <input type="checkbox" id="gps" name="extras" value="GPS">
+        <label for="gps">GPS</label><br>
 
-                <input type="checkbox" id="seguro" name="extras" value="Incluir Seguro">
-                <label for="seguro">Incluir Seguro</label><br>
+        <input type="checkbox" id="seguro" name="extras" value="Incluir Seguro">
+        <label for="seguro">Incluir Seguro</label><br>
 
-                <input type="checkbox" id="quemacocos" name="extras" value="Quemacocos">
-                <label for="quemacocos">Quemacocos</label><br>
+        <input type="checkbox" id="quemacocos" name="extras" value="Quemacocos">
+        <label for="quemacocos">Quemacocos</label><br>
 
-                <input type="checkbox" id="camara_trasera" name="extras" value="Cámara trasera">
-                <label for="camara_trasera">Cámara trasera</label><br>
+        <input type="checkbox" id="camara_trasera" name="extras" value="Cámara trasera">
+        <label for="camara_trasera">Cámara trasera</label><br>
 
-                <input type="checkbox" id="camara_frontal" name="extras" value="Cámara frontal">
-                <label for="camara_frontal">Cámara frontal</label>
-            </div>
+        <input type="checkbox" id="camara_frontal" name="extras" value="Cámara frontal">
+        <label for="camara_frontal">Cámara frontal</label>
+    </div>
+
+    <hr>
+
+    <button type="submit">Calcular Cotización</button>
 
             <button type="submit" class="boton-envio">Enviar Solicitud de Cotización</button>
             <p class="nota-envio">Al hacer click, la cotización se generará a continuación.</p>
