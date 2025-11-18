@@ -81,34 +81,97 @@
             border-top: 5px solid #ff0000;
             font-weight: bold;
         }
-         .form-grupo {
-            margin-bottom: 20px;
-            padding: 5px;
-        }
+        /* Variables de color (aunque no están definidas en tu CSS, se usan en el JS, las defino aquí para consistencia) */
+:root {
+    --color-rojo: #ff0000;
+    --color-azul-oscuro: #0d47a1;
+}
 
-        .form-grupo label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: var(--color-azul-oscuro);
-        }
+/* Estilos generales del formulario */
+#cotizacion-form {
+    max-width: 600px; /* Ancho máximo para que no se estire demasiado */
+    margin: 20px auto; /* Centrar el formulario y darle espacio */
+    padding: 20px;
+    background-color: #f5f5f5; /* Fondo ligeramente gris */
+    border: 3px solid var(--color-rojo); /* Borde rojo como los headers/footers */
+    border-radius: 8px; /* Bordes redondeados sutiles */
+    text-align: left; /* Alinear el texto de las etiquetas a la izquierda */
+}
 
-        #cotizacion-resultado {
-            margin-top: 30px;
-            padding: 25px;
-            background-color: var(--color-amarillo);
-            border: 2px solid var(--color-rojo);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: var(--color-azul-oscuro);
-        }
+/* Grupo de campos para mejor separación */
+.form-grupo {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px dashed #cccccc; /* Borde sutil para agrupar */
+    border-radius: 4px;
+}
 
-        #cotizacion-resultado h3 {
-            text-align: center;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: var(--color-rojo);
-        }
+.form-grupo label,
+.form-grupo p {
+    display: block; /* Asegura que las etiquetas y párrafos tomen su propia línea */
+    font-weight: bold;
+    color: var(--color-azul-oscuro); /* Color azul oscuro para las etiquetas */
+    margin-bottom: 5px;
+}
+
+/* Estilo para los campos de texto y selección */
+#cotizacion-form input[type="text"],
+#cotizacion-form input[type="email"],
+#cotizacion-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    font-size: 1em;
+}
+
+/* Estilo para Radio Buttons y Checkboxes */
+.form-grupo input[type="radio"],
+.form-grupo input[type="checkbox"] {
+    margin-right: 5px;
+    /* Estilo para hacer que las etiquetas estén en línea con el input */
+    vertical-align: middle; 
+}
+
+.form-grupo label[for="contado"], 
+.form-grupo label[for="credito"], 
+.form-grupo label[for="ac"], 
+.form-grupo label[for="gps"], 
+.form-grupo label[for="seguro"], 
+.form-grupo label[for="quemacocos"], 
+.form-grupo label[for="camara_trasera"], 
+.form-grupo label[for="camara_frontal"] {
+    display: inline; /* Hace que las etiquetas de radio/checkbox estén en línea con el botón */
+    font-weight: normal;
+    color: #000000; /* Color negro simple para las opciones */
+    margin-right: 15px;
+}
+
+/* Estilo para el botón de envío */
+.boton-envio {
+    background-color: var(--color-rojo); /* Fondo rojo llamativo */
+    color: #ffffff; /* Texto blanco */
+    border: none;
+    padding: 12px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transición para el hover */
+}
+
+.boton-envio:hover {
+    background-color: #e60000; /* Un rojo un poco más oscuro al pasar el ratón */
+}
+
+/* Estilo para la nota de envío */
+.nota-envio {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+}
 
 </style>
 <body>
@@ -149,7 +212,6 @@
     </footer>
             <form id="cotizacion-form">
             
-            <!-- Nombre y Correo -->
             <div class="form-grupo">
                 <label for="nombre">Nombre completo del solicitante:</label>
                 <input type="text" id="nombre" name="nombre" required>
@@ -160,7 +222,6 @@
                 <input type="email" id="correo" name="correo" required>
             </div>
             
-            <!-- Menú desplegable (select) -->
             <div class="form-grupo">
                 <label for="marca">Selección de la marca del vehículo:</label>
                 <select id="marca" name="marca" required>
@@ -176,7 +237,6 @@
                 </select>
             </div>
             
-            <!-- Selección del tipo de financiamiento (radio) -->
             <div class="form-grupo">
                 <p>Tipo de financiamiento:</p>
                 <input type="radio" id="contado" name="financiamiento" value="Contado" required>
@@ -185,7 +245,6 @@
                 <label for="credito">Crédito</label>
             </div>
 
-            <!-- Casillas de verificación (checkbox) -->
             <div class="form-grupo">
                 <p>Extras / Accesorios:</p>
                 <input type="checkbox" id="ac" name="extras" value="Aire Acondicionado">
