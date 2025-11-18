@@ -24,6 +24,39 @@
             padding: 5px;
             background-color: #ffffff; 
         }
+          .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 5px solid #ff0000;
+            border-bottom: 5px solid #ff0000;
+        }
+
+        .top-nav__item {
+            padding: 15px 10px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.2;
+            box-sizing: border-box;
+        }
+
+        .top-nav__item--blue {
+            background-color: #64b5f6; 
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .top-nav__item--red {
+            background-color: #ff0000; 
+            flex: 3;
+            white-space: nowrap;
+            padding: 5px 10px;
+        }
+
+        .top-nav__item--red marquee {
+            font-size: 1em;
+            color: #ffffff;
+        }
 
         .grid-item {
             background-color: #ff0000;
@@ -56,13 +89,15 @@
         <h1 class="header__titulo">AGENCIA DE AUTOS ASIATICOS</h1>
     </header>
 
-    <div class="top-nav">
-        <div class="top-nav__item top-nav__item--blue"></div>
+   <div class="top-nav">
+        <div class="top-nav__item top-nav__item--blue">VIDEO DE LA AGENCIA</div>
         <div class="top-nav__item top-nav__item--red">
             <marquee behavior="scroll" direction="left">
                 MARQUESINA: AUTOS PERSONALES, DEPORTIVOS Y DE LUJO, SUVS Y MINIVANS, PICKUPS Y COMERCIALES, HÍBRIDOS
             </marquee>
         </div>
+        <div class="top-nav__item top-nav__item--blue">MAPA DE LOCALIZACIÓN</div>
+    </div>
         <div class="top-nav__item top-nav__item--blue"></div>
     </div>
     <main class="content-grid">
