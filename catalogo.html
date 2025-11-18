@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Autos</title>
+    <style>
+        /* --- Estilos Generales --- */
+        body {
+            background-color: rgb(63, 0, 0);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            padding: 5px;
+            background-color: #000000;
+        }
+
+        .grid-item {
+            background-color: #a10d0d;
+            border-bottom: 5px solid #002fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .grid-item button {
+            background-color: #002fff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* --- Estilos para el Modal de Cotización (MÁS PEQUEÑO) --- */
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        #cotizacion-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px; 
+            background: #f4f4f4;
+            color: #333;
+            border: 2px solid #002fff;
+            border-radius: 8px;
+            z-index: 1000;
+            max-width: 280px; /* Ancho reducido */
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #cotizacion-form input[type="text"], 
+        #cotizacion-form input[type="email"], 
+        #cotizacion-form input[type="number"], 
+        #cotizacion-form select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0 8px 0;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .form-grupo {
+            border: 1px solid #ccc;
+            padding: 8px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        
+        .form-grupo input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        .form-grupo label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        /* Estilo para los botones generales del formulario */
+        #cotizacion-form button {
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* Estilo Específico para el Botón Rojo de Recalcular */
+        #btn-recalcular-rojo {
+            background-color: #a10d0d; /* Rojo más oscuro */
+        }
+        
+        /* Estilo para el botón de Enviar */
+        #btn-enviar {
+            background-color: #002fff;
+        }
+
+        /* Estilo para el botón de Cerrar */
+        #cotizacion-form #btn-cerrar {
+            background-color: #333;
+        }
+
+        #cotizacion-result {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px dashed #333;
+            background-color: #e0e0e0;
+            /* Estilo para hacerlo más compacto */
+            font-size: 0.9em;
+            line-height: 1.2;
+        }
+
+        #cotizacion-result p {
+            margin: 2px 0; /* Espacio reducido entre párrafos */
+        }
+        
+        #total-extras {
+            font-size: 0.9em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <main class="content-grid">
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logohonda.jpg" alt="Logo Honda" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/autohonda.jpg" alt="Auto Honda" height="100" width="200">
+            </a>
+            <p><strong>Honda Civic Sedan</strong></p>
+            <p>Precio desde: <strong>$25,000 MXN</strong></p>
+            <button onclick="abrirCotizacion('Honda Civic Sedan', 25000)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logonissan.jpg" alt="Logo Nissan" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/autonissan.jpeg" alt="Auto Nissan" height="100" width="200">
+            </a>
+            <p><strong>Nissan Altima</strong></p>
+            <p>Precio desde: <strong>$27,500 MXN</strong></p>
+            <button onclick="abrirCotizacion('Nissan Altima', 27500)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logotoyota.png" alt="Logo Toyota" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/autotoyota.png" alt="Auto Toyota" height="100" width="200">
+            </a>
+            <p><strong>Toyota Corolla</strong></p>
+            <p>Precio desde: <strong>$22,800 MXN</strong></p>
+            <button onclick="abrirCotizacion('Toyota Corolla', 22800)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logomazda.png" alt="Logo Mazda" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/automazda.jpg" alt="Auto Mazda" height="100" width="200">
+            </a>
+            <p><strong>Mazda3 Hatchback</strong></p>
+            <p>Precio desde: <strong>$24,100 MXN</strong></p>
+            <button onclick="abrirCotizacion('Mazda3 Hatchback', 24100)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logohyundai.png" alt="Logo Hyundai" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/autohiunday.jpg" alt="Auto Hyundai" height="100" width="200">
+            </a>
+            <p><strong>Hyundai Elantra</strong></p>
+            <p>Precio desde: <strong>$21,500 MXN</strong></p>
+            <button onclick="abrirCotizacion('Hyundai Elantra', 21500)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logokia.png" alt="Logo Kia" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/autokia.jpg" alt="Auto Kia" height="100" width="200">
+            </a>
+            <p><strong>Kia Forte</strong></p>
+            <p>Precio desde: <strong>$20,800 MXN</strong></p>
+            <button onclick="abrirCotizacion('Kia Forte', 20800)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logomitsubishi.jpg" alt="Logo Mitsubishi" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/automitsubishi.jpg" alt="Auto Mitsubishi" height="100" width="200">
+            </a>
+            <p><strong>Mitsubishi Mirage</strong></p>
+            <p>Precio desde: <strong>$16,245 MXN</strong></p>
+            <button onclick="abrirCotizacion('Mitsubishi Mirage', 16245)">Solicitar Cotización</button>
+        </div>
+
+        <div class="grid-item">
+            <a href="index.html">
+                <img src="AgenciaAutosAsiaticos(2) (1)/logosuzuki.png" alt="Logo Suzuki" height="50" width="100">
+                <img src="AgenciaAutosAsiaticos(2) (1)/autosuzuki.jpg" alt="Auto Suzuki" height="100" width="200">
+            </a>
+            <p><strong>Suzuki Swift</strong></p>
+            <p>Precio desde: <strong>$18,990 MXN</strong></p>
+            <button onclick="abrirCotizacion('Suzuki Swift', 18990)">Solicitar Cotización</button>
+        </div>
+    </main>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div id="cotizacion-form">
+        <h3>Cotización: <span id="car-title"></span></h3>
+        <p>Precio base: <span id="car-price-display"></span></p>
+
+        <form id="quoteForm">
+            <input type="hidden" id="car-model-input" name="carModel">
+            <input type="hidden" id="car-base-price" name="basePrice">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <div class="form-grupo">
+                <p><strong>Extras / Accesorios:</strong></p>
+                <input type="checkbox" id="ac" name="extras" value="Aire Acondicionado" data-cost="500">
+                <label for="ac">Aire Acondicionado</label><br>
+
+                <input type="checkbox" id="gps" name="extras" value="GPS" data-cost="350">
+                <label for="gps">GPS</label><br>
+
+                <input type="checkbox" id="seguro" name="extras" value="Incluir Seguro" data-cost="1200">
+                <label for="seguro">Incluir Seguro (1 año)</label><br>
+
+                <input type="checkbox" id="quemacocos" name="extras" value="Quemacocos" data-cost="800">
+                <label for="quemacocos">Quemacocos</label><br>
+
+                <input type="checkbox" id="camara_trasera" name="extras" value="Cámara trasera" data-cost="250">
+                <label for="camara_trasera">Cámara trasera</label><br>
+
+                <input type="checkbox" id="camara_frontal" name="extras" value="Cámara frontal" data-cost="200">
+                <label for="camara_frontal">Cámara frontal</label>
+                <div id="total-extras"></div>
+            </div>
+            
+            <label for="plazo">Plazo de Financiamiento (meses):</label>
+            <select id="plazo" name="plazo">
+                <option value="12">12 meses</option>
+                <option value="24">24 meses</option>
+                <option value="36">36 meses</option>
+                <option value="48">48 meses</option>
+                <option value="60">60 meses</option>
+            </select>
+
+            <label for="enganche">Enganche (% del precio):</label>
+            <input type="number" id="enganche" name="enganche" min="10" max="80" value="20" required>%
+
+            <hr>
+            <h4>Resultado Estimado:</h4>
+            <div id="cotizacion-result">Presiona "Recalcular Cotización" para ver el pago mensual.</div>
+            <hr>
+            
+            <div class="form-actions">
+                <button type="button" onclick="calcularCotizacion()" id="btn-recalcular-rojo">Recalcular Cotización</button>
+                <button type="submit" id="btn-enviar">Enviar Solicitud</button>
+                <button type="button" onclick="cerrarCotizacion()" id="btn-cerrar">Cerrar</button>
+            </div>
+        </form>
+    </div>
+    <a href="index.html"<h1>volver</h1>></a>
+
+    <script>
+        // Formato de moneda para Pesos Mexicanos (MXN)
+        const currencyFormatOptions = { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+        // Función para abrir el formulario modal y cargar los datos del auto
+        function abrirCotizacion(modelo, precio) {
+            document.getElementById('car-title').textContent = modelo;
+            // Usar formato MXN
+            document.getElementById('car-price-display').textContent = `${precio.toLocaleString('es-MX', currencyFormatOptions)}`;
+            document.getElementById('car-model-input').value = modelo;
+            document.getElementById('car-base-price').value = precio;
+            
+            document.getElementById('cotizacion-form').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+
+            // Reinicia los checkboxes al abrir
+            const checkboxes = document.querySelectorAll('#quoteForm input[type="checkbox"]');
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+
+            // OCULTAR/REINICIAR RESULTADO al abrir el modal
+            document.getElementById('cotizacion-result').innerHTML = 'Presiona "Recalcular Cotización" para ver el pago mensual.';
+            document.getElementById('total-extras').innerHTML = 'Costo Extras: $0.00 MXN'; 
+        }
+
+        // Función para cerrar el formulario modal
+        function cerrarCotizacion() {
+            document.getElementById('cotizacion-form').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // FUNCIÓN PRINCIPAL DE CÁLCULO: SOLO SE LLAMA CON EL BOTÓN
+        function calcularCotizacion() {
+            let precioBase = parseFloat(document.getElementById('car-base-price').value);
+            const enganchePorcentaje = parseFloat(document.getElementById('enganche').value) / 100;
+            const plazo = parseInt(document.getElementById('plazo').value);
+
+            if (isNaN(precioBase) || precioBase <= 0) {
+                 document.getElementById('cotizacion-result').innerHTML = 'Error: Precio base no válido.';
+                 return;
+            }
+            
+            // 1. CALCULAR COSTO TOTAL DE EXTRAS
+            let costoExtras = 0;
+            const checkboxes = document.querySelectorAll('#quoteForm input[name="extras"]:checked');
+            
+            checkboxes.forEach(checkbox => {
+                costoExtras += parseFloat(checkbox.getAttribute('data-cost'));
+            });
+            
+            const precioTotal = precioBase + costoExtras;
+
+            // Mostrar el costo de los extras en MXN
+            document.getElementById('total-extras').innerHTML = `Costo Extras: <strong>${costoExtras.toLocaleString('es-MX', currencyFormatOptions)}</strong>`;
+
+
+            // 2. CÁLCULO FINANCIERO 
+            const tasaAnual = 0.109; // Tasa Ficticia Anual
+            const tasaMensual = tasaAnual / 12;
+
+            const engancheMonto = precioTotal * enganchePorcentaje;
+            const montoFinanciar = precioTotal - engancheMonto;
+
+            // Cálculo de la Mensualidad (Fórmula de Anualidad)
+            let mensualidad = 0;
+            if (tasaMensual > 0) {
+                // PMT = P * [i * (1 + i)^n] / [(1 + i)^n - 1]
+                mensualidad = montoFinanciar * (tasaMensual * Math.pow((1 + tasaMensual), plazo)) / (Math.pow((1 + tasaMensual), plazo) - 1);
+            } else {
+                mensualidad = montoFinanciar / plazo;
+            }
+
+            // 3. MOSTRAR RESULTADOS (SIMPLE Y COMPACTO)
+            let resultado = `
+                <p>Total (Coche + Extras): <strong>${precioTotal.toLocaleString('es-MX', currencyFormatOptions)}</strong></p>
+                <p>Enganche (${(enganchePorcentaje * 100).toFixed(0)}%): <strong>${engancheMonto.toLocaleString('es-MX', currencyFormatOptions)}</strong></p>
+                <p>Monto a Financiar (${plazo} meses): <strong>${montoFinanciar.toLocaleString('es-MX', currencyFormatOptions)}</strong></p>
+                <p style="font-size: 1.1em; color: #a10d0d; font-weight: bold;">Pago Mensual Aprox: ${mensualidad.toLocaleString('es-MX', currencyFormatOptions)}</p>
+            `;
+
+            document.getElementById('cotizacion-result').innerHTML = resultado;
+        }
+
+        // Simular el envío del formulario
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const modelo = document.getElementById('car-model-input').value;
+            const nombre = document.getElementById('nombre').value;
+            
+            alert(`¡Solicitud de Cotización enviada!\n\nAuto: ${modelo} (Incluyendo Extras Seleccionados)\n\nPronto un asesor se pondrá en contacto contigo.`);
+            cerrarCotizacion();
+        });
+    </script>
+</body>
+</html>
